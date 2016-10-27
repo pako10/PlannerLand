@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">PlannerLand</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="busca">Busca</string>
+    <string name="elige">Elige</string>
+    <string name="agenda">Agenda</string>
+    <string name="iniciasesion">Inicia sesión</string>
+    <string name="title_activity_search_menu">Buscar</string>
+    <string name="busqueda">Ingrese busqueda</string>
+    <string name="title_activity_menu">PlannerLand</string>
+    <string name="item_navigation_drawer_terminos">"Terminos y condiciones</string>
+    <string name="item_navigation_drawer_configuracion">Configuracion</string>
+    <string name="item_navigation_drawer_sobre">Sobre PlannerLand</string>
+    <string name="item_navigation_drawer_salir">Salir</string>
+    <string name="EditTextNombre">Nombre(s)</string>
+    <string name="EditTextApellidos">Apellido(s)</string>
+    <string name="EditTextCorreo">Correo electronico</string>
+    <string name="contra">Contraseña</string>
+    <string name="contraconfir">Confirma contraseña</string>
+    <string name="seleccionpais">Selecciona tu pais</string>
+    <string name="seleccionciudad">Selecciona tu ciudad</string>
+
+    <string name="registrarte">Registrar</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_splash">Splash</string>
+    <string name="action_settings">Menu</string>
+    <string name="title_activity_login_">Login_Activity</string>
+    <string name="title_activity_registro">RegistroActivity</string>
+
+
+    -->Registro string
+    <string name="nombre">Nombre(s)</string>
+    <string name="apellido">Apellido(s)</string>
+    <string name="email">Correo Electronico</string>
+    <string name="password">Contraseña</string>
+    <string name="confirmPass">Confirma Contraseña</string>
+    <string name="terminos">Terminos y Condiciones</string>
+    <string name="title_activity_calendar">Calendar</string>
+    <string name="title_activity_splash_main2">PlannerLand</string>
+    <string name="Registrate">Registrate</string>
+    <string name="title_activity_registered">RegisteredActivity</string>
+
+    //STRINGS MENU
+    <string name="item_navigation_drawer_calendar">Calendario</string>
+    <string name="item_navigation_drawer_chat">Chat</string>
+    <string name="item_navigation_drawer_membership">Membresia</string>
+    <string name="item_navigation_drawer_habilidades">Habilidades</string>
+    <string name="item_navigation_drawer_publicidad">Publicidad</string>
+    <string name="item_navigation_drawer_conditionterms">Terminos y condiciones</string>
+    <string name="item_navigation_drawer_settings">Configuracion</string>
+    <string name="item_navigation_drawer_about">About me</string>
+    <string name="item_navigation_drawer_logout">Salir</string>
+    <string name="title_activity_terminos_condiciones">Terminos y Condiciones</string>
+
+    <!-- String para los botones -->
+    <string name="Hora">Hora</string>
+    <string name="dia">Día</string>
+    <string name="Semana">Semana</string>
+    <string name="Mes"> Mes</string>
+    <string name="dias365">Año</string>
+</resources>

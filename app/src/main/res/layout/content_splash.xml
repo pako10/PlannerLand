@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.pakoandrade.plannerland.registro.SplashActivity"
+    tools:showIn="@layout/activity_splash"
+    android:background="@color/colorPlannerGris">
+
+    <ImageView
+        android:id="@+id/ImgLogoPlanner"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logotipo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/TextBusca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/busca"
+        android:textSize="@dimen/SizeTextSplash"
+        android:layout_below="@+id/ImgLogoPlanner"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/TextElige"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/elige"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="24dp"
+        android:textSize="@dimen/SizeTextSplash"
+        android:layout_below="@+id/TextBusca"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/TextAgenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/agenda"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="35dp"
+        android:textSize="@dimen/SizeTextSplash"
+        android:layout_below="@+id/TextElige"
+        android:layout_alignLeft="@+id/TextBusca"
+        android:layout_alignStart="@+id/TextBusca" />
+
+    <ProgressBar
+        android:id="@+id/ProgressSplash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
