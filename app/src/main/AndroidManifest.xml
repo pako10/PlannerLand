@@ -42,7 +42,9 @@
         <activity
             android:name=".registro.RegisteredActivity"
             android:label="@string/title_activity_registered"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

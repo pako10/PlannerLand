@@ -12,6 +12,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -51,6 +52,7 @@ public class RegistroActivity extends BaseVolley {
     Spinner  spPaises;
     Spinner  spCiudades;
     ProgressBar pbRegistrando;
+    AutoCompleteTextView atCity;
     public  static final int Segundos = 5;
     public  static final int delay = 2;
     public  static final int milisegundos = Segundos * 1000;
@@ -80,6 +82,8 @@ public class RegistroActivity extends BaseVolley {
         pbRegistrando = (ProgressBar) findViewById(R.id.progressBar);
         pbRegistrando.setVisibility(View.INVISIBLE);
         pbRegistrando.setMax(maximo_progreso());
+
+        atCity = (AutoCompleteTextView) findViewById(R.id.autoCompleteCity);
 
         this.spPaises =(Spinner) findViewById(R.id.paises);
         this.spCiudades =(Spinner) findViewById(R.id.ciudades);
@@ -154,7 +158,7 @@ public class RegistroActivity extends BaseVolley {
     }
 
     private void makeRequest(){
-        String url = "http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/ListPais";
+        String url = "http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/ListPaisBusqueda";
         //String url = " http://wsplanner.cloudapp.net/wsPL.svc/GetPrueba";
         //String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=39.476245,-0.349448&sensor=true";
         final ArrayAdapter<CharSequence> adapter =
@@ -195,7 +199,7 @@ public class RegistroActivity extends BaseVolley {
     }
 
     private void getValue(final int value){
-        String url = "http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/ListPais";
+        String url = "http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/ListPaisBusqueda";
 
         final JsonObjectRequest request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -271,6 +275,7 @@ public class RegistroActivity extends BaseVolley {
                 JSONObject userObject = (JSONObject) jsonArray.get(i);
                 String id = userObject.optString("Text");
                 spCiudades.setAdapter(adapterC);
+                atCity.setAdapter(adapterC);
                 adapterC.add(id);
             }
         } catch (JSONException e) {

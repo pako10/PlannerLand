@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -26,17 +27,20 @@ import cz.msebera.android.httpclient.Header;
 public class layout_habilidades extends Fragment {
     Button btHabilities;
     EditText etHabilities;
+    TextView tvHabilities;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sevedInstanceState){
 
         final View view = inflater.inflate(R.layout.layout_habilidades, container, false);
         etHabilities = (EditText) view.findViewById(R.id.etHabilidades);
         btHabilities = (Button) view.findViewById(R.id.btHabilidades);
+        tvHabilities = (TextView) view.findViewById(R.id.tvHabSize);
+
 
         btHabilities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerHabilities();
+               registerHabilities();
             }
         });
 
@@ -73,5 +77,26 @@ public class layout_habilidades extends Fragment {
 
             }
         });
+    }
+
+    public void countWords(){
+        int size = 140;
+        //int contador = 1, pos;
+
+        String s = etHabilities.getText().toString();
+        /*s = s.trim(); //eliminar los posibles espacios en blanco al principio y al final
+        if (s.isEmpty()) { //si la cadena está vacía
+            contador = 0;
+        } else {
+            pos = s.indexOf(" "); //se busca el primer espacio en blanco
+            while (pos != -1) { //mientras que se encuentre un espacio en blanco
+                contador++; //se cuenta una palabra
+                pos = s.indexOf(" ", pos + 1); //se busca el siguiente espacio en blanco
+            }                                               //a continuación del actual
+        }*/
+
+
+        int tam = s.split(" ").length;
+        tvHabilities.setText(tam);
     }
 }

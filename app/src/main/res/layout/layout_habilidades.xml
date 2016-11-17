@@ -15,9 +15,15 @@
             android:layout_height="match_parent"
             android:hint="Introduce tus habilidades"
             android:imeOptions="actionUnspecified"
-            android:inputType="text" />
+            android:inputType="textMultiLine"/>
 
     </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvHabSize" />
 
     <Button
         android:layout_width="wrap_content"
