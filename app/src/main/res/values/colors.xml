@@ -3,7 +3,9 @@
     <color name="colorPrimary">#dc143c</color>
     <color name="colorPrimaryDark">#b22222</color>
     <color name="colorAccent">#FF1744</color>
+    <color name="colorButtons">#ffa7123f</color>
     <color name="colorTextPrimary">#212121</color>
+    <color name="textColorBlue">#0D47A1</color>
     <color name="colorTextIcon">#FFFFFF</color>
     <color name="colorFondo">#c4c4c4</color>
     <color name="colorEfectoButton">#455A64</color>

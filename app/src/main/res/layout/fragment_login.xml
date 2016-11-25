@@ -13,22 +13,11 @@
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textView"/>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/logotipo"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center" />
+        android:orientation="vertical"
+        android:layout_marginTop="61dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
 
         <android.support.design.widget.TextInputLayout
@@ -39,12 +28,8 @@
                 android:id="@+id/et_user_login"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textColorHint="@color/material_blue_grey_800"
-                android:background="#FFFFFF"
-                android:hint="Usuario"
+                android:hint="Correo Electronico"
                 android:layout_marginBottom="20dp"
-                android:textColor="#000000"
-                android:maxLines="1"
                 android:singleLine="true"
                 android:scrollHorizontally = "true"
                 android:ellipsize = "end" />
@@ -62,13 +47,8 @@
                 android:inputType="textPassword"
                 android:ems="10"
                 android:hint="Contraseña"
-                android:maxLines="1"
                 android:singleLine="true"
-                android:scrollHorizontally = "true"
-                android:ellipsize = "end"
-                android:textColorHint="@color/material_blue_grey_800"
-                android:background="#ffffff"
-                android:textColor="#000000"/>
+                android:scrollHorizontally = "true" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -78,7 +58,8 @@
             android:layout_height="45dp"
             android:text="Iniciar Sesion"
             android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
+            android:textColor="#ffff"
+            android:background="@color/colorButtons"
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp" />
@@ -87,17 +68,35 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="¿Olvidaste tu contraseña?"
+            android:id="@+id/tvRecoverPass"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/textColorBlue"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Registrate"
             android:id="@+id/registerL"
-            android:layout_weight="0.09"
             android:layout_marginTop="20dp"
-            android:textColor="#0D47A1"
-            android:layout_gravity="center_horizontal"/>
+            android:textColor="@color/textColorBlue"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

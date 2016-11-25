@@ -63,4 +63,22 @@
     <string name="Semana">Semana</string>
     <string name="Mes"> Mes</string>
     <string name="dias365">Año</string>
+
+
+    -->LOGIN STRING JAVA ERRORES
+    <string name="userNoExist">El usuario o contraseña con el que intenta acceder no son válidos. Por favor corrija los datos de acceso e inténtelo nuevamente.</string>
+    <string name="userNotActive">El usuario con el que intenta ingresar, aún no se encuentra activo. Por favor revisar su correo electrónico para verificar la activación del mismo.</string>
+    <string name="userBlocked">Esta cuenta se encuentra bloqueada</string>
+    <string name="wrongPassword">Contraseña Incorrecta</string>
+    <string name="wrongPass">Contraseña incorrecta te quedan</string>
+    <string name="numberIntents">intentos</string>
+    <string name="emailInvalidFormat">Formato de correo inválido.</string>
+    <string name="passInvalidFormat">Introduce una contraseña valida</string>
+    <string name="entering">Entrando</string>
+    <string name="emailSend">Se ha enviado un correo de confirmacion</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="recoverPassword">Recuperacion de Contraseña</string>
+    <string name="enterEmail">Ingresa tu correo electronico</string>
+
 </resources>

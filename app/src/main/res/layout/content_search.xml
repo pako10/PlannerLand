@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:text="@string/title_activity_login"
-            android:background="#ffa7123f"
+            android:background="@color/colorButtons"
             android:textColor="#ffffff"
             android:layout_gravity="center"
             android:id="@+id/login" />
