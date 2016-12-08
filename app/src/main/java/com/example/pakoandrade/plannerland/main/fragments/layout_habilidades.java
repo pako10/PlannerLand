@@ -1,7 +1,11 @@
 package com.example.pakoandrade.plannerland.main.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +19,10 @@ import com.example.pakoandrade.plannerland.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -28,6 +34,7 @@ public class layout_habilidades extends Fragment {
     Button btHabilities;
     EditText etHabilities;
     TextView tvHabilities;
+    String idPID;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sevedInstanceState){
 
@@ -54,6 +61,28 @@ public class layout_habilidades extends Fragment {
         }
         });*/
 
+        SharedPreferences usuario = this.getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        idPID = usuario.getString("idPID","");
+        retrieveHabilities();
+
+        etHabilities.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                countWords(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
         return view;
     }
 
@@ -62,14 +91,16 @@ public class layout_habilidades extends Fragment {
         String habilities = etHabilities.getText().toString();
         final RequestParams params = new RequestParams();
         params.put("pHabilidades",habilities);
+        params.put("pPID",idPID);
 
-        client.get("http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/GetHabilidades", params, new AsyncHttpResponseHandler() {
+        client.get("http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/InsertHabilidades", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String response = new String(responseBody);
                 //JSONObject jsObj = new JSONObject(response);
                 //JSONArray arr = jsObj.optJSONArray("d");
-                etHabilities.setText(response);
+                Toast.makeText(layout_habilidades.this.getActivity(), "Se registraron", Toast.LENGTH_SHORT).show();
+                retrieveHabilities();
             }
 
             @Override
@@ -79,11 +110,39 @@ public class layout_habilidades extends Fragment {
         });
     }
 
-    public void countWords(){
+    public void retrieveHabilities(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("pPID",idPID);
+
+        client.get("http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/GetHabilidades", params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                JSONObject jsonObj = null;
+                try {
+                    jsonObj = new JSONObject(responseString);
+                    String habilidad = String.valueOf(jsonObj.get("d"));
+                    etHabilities.setText(habilidad);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+
+
+    public void countWords(String hab){
         int size = 140;
         //int contador = 1, pos;
 
-        String s = etHabilities.getText().toString();
+
         /*s = s.trim(); //eliminar los posibles espacios en blanco al principio y al final
         if (s.isEmpty()) { //si la cadena está vacía
             contador = 0;
@@ -96,7 +155,11 @@ public class layout_habilidades extends Fragment {
         }*/
 
 
-        int tam = s.split(" ").length;
-        tvHabilities.setText(tam);
+        //int tam = s.split(" ").length;
+        //tvHabilities.setText(tam);
+        String[] nuevo = hab.split(" ");
+        tvHabilities.setText(String.valueOf(size - nuevo.length));
+
+
     }
 }

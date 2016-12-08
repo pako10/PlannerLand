@@ -1,9 +1,12 @@
 package com.example.pakoandrade.plannerland.registro;
 
+import android.accessibilityservice.GestureDescription;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +23,8 @@ import android.widget.Toast;
 
 import com.example.pakoandrade.plannerland.MainMenuActivity;
 import com.example.pakoandrade.plannerland.R;
+import com.example.pakoandrade.plannerland.main.PlannerMainMenuActivity;
+import com.example.pakoandrade.plannerland.main.SearchActivity;
 import com.example.pakoandrade.plannerland.utils.Constants;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -179,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void Login(String username,String password){
+    public void Login(final String username, String password){
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.add(Constants.emailParam,username);
@@ -239,6 +244,32 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else {
                         etPostLogin.setText(String.valueOf(jsonObject.get("Nombre")) + " " + String.valueOf(jsonObject.get("Apellidos")));
+
+                        SharedPreferences usuario = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = usuario.edit();
+                        String userName = String.valueOf(jsonObject.get("Nombre"));
+                        String userLastName = String.valueOf(jsonObject.get("Apellidos"));
+                        String userPID = String.valueOf(jsonObject.get("PID"));
+                        String userHabilities = String.valueOf(jsonObject.get("Habilidades"));
+                        String userLat = String.valueOf(jsonObject.get("Latitud"));
+                        String userLong = String.valueOf(jsonObject.get("Longitud"));
+                        String userIdPid = String.valueOf(jsonObject.get("idPID"));
+                        String userIdCiudad = String.valueOf(jsonObject.get("idCiudad"));
+                        String userIdPais = String.valueOf(jsonObject.get("idPais"));
+                        editor.putString("nombre",userName);
+                        editor.putString("apellidos",userLastName);
+                        editor.putString("PID",userPID);
+                        editor.putString("habilidades",userHabilities);
+                        editor.putString("latitud",userLat);
+                        editor.putString("longitud",userLong);
+                        editor.putString("idPID",userIdPid);
+                        editor.putString("idCiudad",userIdCiudad);
+                        editor.putString("idPais",userIdPais);
+                        editor.commit();
+                        Intent o = new Intent(LoginActivity.this, PlannerMainMenuActivity.class);
+                        startActivity(o);
+                        finish();
+
                         progressDialog.dismiss();
                     }
 
@@ -254,6 +285,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean isEmailValid(CharSequence email){
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent i = new Intent(LoginActivity.this, SearchActivity.class);
+        startActivity(i);
+        finish();
     }
 
 }

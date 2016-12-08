@@ -5,10 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.pakoandrade.plannerland.registro.RegistroActivity">
+    tools:context="com.example.pakoandrade.plannerland.registro.RegistroActivity"
+    android:background="@color/colorPlannerGris">
+
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
     <include layout="@layout/content_registro" />
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <include layout="@layout/terms_conditions_sheet" />
 
 
 

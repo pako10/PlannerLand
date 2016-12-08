@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+    <item
+        android:checked="true"
+        android:id="@+id/item_navigation_drawer_calendar"
+        android:icon="@drawable/ic_perm_contact_calendar_black_24dp"
+        android:title="@string/item_navigation_drawer_calendar" />
+    <item
+        android:id="@+id/item_navigation_drawer_chat"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="@string/item_navigation_drawer_chat" />
+    <item
+        android:id="@+id/item_navigation_drawer_membership"
+        android:icon="@drawable/ic_card_membership_black_24dp"
+        android:title="@string/item_navigation_drawer_membership" />
+    <item
+        android:id="@+id/item_navigation_drawer_habilidades"
+        android:icon="@drawable/ic_picture_in_picture_black_24dp"
+        android:title="@string/item_navigation_drawer_habilidades" />
+    <item
+        android:id="@+id/item_navigation_drawer_publicidad"
+        android:icon="@drawable/ic_create_black_24dp"
+        android:title="@string/item_navigation_drawer_publicidad"/>
+
+
+
+
+        <item
+            android:id="@+id/item_navigation_drawer_conditionterms"
+            android:icon="@drawable/ic_content_paste_black_24dp"
+            android:title="@string/item_navigation_drawer_conditionterms" />
+
+        <item
+            android:id="@+id/item_navigation_drawer_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/item_navigation_drawer_settings"
+            />
+        <item
+            android:id="@+id/item_navigation_drawer_aboutme"
+            android:icon="@drawable/ic_error_black_24dp"
+            android:title="@string/item_navigation_drawer_about"
+            />
+        <item
+            android:id="@+id/item_navigation_drawer_logout"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="@string/item_navigation_drawer_logout" />
+    </group>
+
+</menu>

@@ -81,4 +81,19 @@
     <string name="recoverPassword">Recuperacion de Contraseña</string>
     <string name="enterEmail">Ingresa tu correo electronico</string>
 
+
+
+    <string name="loremIpsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ornare turpis non augue volutpat convallis. Fusce tincidunt nisl eget ex pulvinar euismod. Cras enim est, aliquet at pulvinar ac, volutpat ut ex. Nunc pellentesque in nibh nec lacinia. Sed pretium nibh a erat gravida dignissim. Nunc in diam at neque convallis semper et nec elit. In aliquam ornare mollis. Vivamus vel leo id lacus ullamcorper vestibulum in vitae orci. Etiam dictum sem at ante tristique, quis rhoncus quam venenatis. Fusce eu dignissim mauris, et feugiat mi.
+
+Sed mattis mi at orci gravida, auctor ultrices elit consequat. Duis pulvinar pharetra libero, sed viverra ex gravida eu. Nunc laoreet dictum lacus, at lacinia magna congue vel. Integer aliquet tortor lacinia, finibus diam vel, semper orci. Duis justo erat, semper non ultricies eget, ultricies non arcu. Nulla non consectetur massa. Donec suscipit dui ac quam consequat fringilla. Nullam eleifend quam vitae massa porta imperdiet. Curabitur diam nunc, venenatis in consequat vel, consequat eu mauris. Donec a risus molestie urna pretium mollis.
+
+Pellentesque ac pretium sapien, id tincidunt massa. Maecenas auctor elementum odio, sit amet blandit nisl tempor ac. Donec a lectus libero. Nam semper, lectus eget hendrerit lobortis, neque dolor fringilla lorem, ut auctor diam purus et augue. Ut volutpat accumsan eros, vel facilisis tellus dictum eu. Phasellus eu augue a ligula dictum luctus et ut diam. Integer fringilla accumsan velit eu consectetur. Nullam sit amet pharetra metus, sit amet suscipit augue. Curabitur varius, justo non gravida tempor, sapien massa vulputate neque, hendrerit luctus magna felis quis dolor. Aliquam eget imperdiet orci. Quisque laoreet feugiat orci vitae lobortis.
+
+Aliquam erat volutpat. Integer commodo justo vitae felis bibendum elementum. Aenean id mauris eu risus aliquam dapibus accumsan sit amet eros. Vestibulum libero dolor, mattis nec pharetra in, posuere at tortor. Mauris porttitor lobortis erat, non molestie velit tempus sit amet. Etiam sit amet vehicula turpis. Vestibulum nec eros sit amet urna laoreet condimentum. Morbi facilisis scelerisque augue egestas bibendum. In quis lorem fermentum, auctor justo ut, commodo urna. Morbi ullamcorper a arcu ut rhoncus.
+
+Ut consequat metus sit amet sem faucibus, in efficitur diam bibendum. In porta dui placerat, sollicitudin mauris eu, suscipit lectus. Morbi varius mattis commodo. Nam vel efficitur elit. Vestibulum tincidunt felis vel nunc aliquam tincidunt. Nulla lorem ante, sagittis ut convallis sit amet, rhoncus a massa. Cras vel pretium nulla. Nam viverra ipsum a accumsan vehicula. Suspendisse a lectus a sapien ultrices commodo sed venenatis velit. Nullam a scelerisque risus, in faucibus arcu. Sed lacus lacus, euismod quis malesuada nec, tincidunt sit amet turpis. Integer mi nunc, fermentum non posuere eget, dictum vel odio. Donec vehicula metus a urna consequat elementum. Nulla facilisi. In hac habitasse platea dictumst. Duis semper, velit a cursus consectetur, enim risus tempor nibh, non tristique nunc magna dapibus tortor.</string>
+    <string name="title_activity_planner_main_menu">PlannerMainMenuActivity</string>
+    <string name="introduce_tus_habilidades">Introduce tus habilidades</string>
+
+
 </resources>

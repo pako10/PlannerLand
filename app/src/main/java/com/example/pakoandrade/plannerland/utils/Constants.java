@@ -7,8 +7,11 @@ package com.example.pakoandrade.plannerland.utils;
 public final class Constants {
 
     /**CONSTANTS IN LOGIN **/
-    public static final String wsLogin = "http://wsplannerlog.cloudapp.net/wsLogin.svc/GetLogin";
-    public static final String wsRecoverPass = "http://wsplannerlog.cloudapp.net/wsLogin.svc/SendMailPass";
+
+    //http://wsplannerlog.cloudapp.net/wsLogin.svc/
+
+    public static final String wsLogin = "http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/GetLogin";
+    public static final String wsRecoverPass = "http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/SendMailPass";
     public static final String emailParam = "pPID";
     public static final String passwordParam = "pPASS";
 }

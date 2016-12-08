@@ -1,6 +1,8 @@
 package com.example.pakoandrade.plannerland.registro;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
@@ -11,8 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.example.pakoandrade.plannerland.MainMenuActivity;
 import com.example.pakoandrade.plannerland.R;
+import com.example.pakoandrade.plannerland.main.PlannerMainMenuActivity;
 import com.example.pakoandrade.plannerland.main.SearchActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -29,7 +34,17 @@ public class SplashActivity extends AppCompatActivity {
         /** Programacion de ProgressBar*/
         progreso = (ProgressBar) findViewById(R.id.ProgressSplash);
         progreso.setMax(maximo_progreso());
-        empezaranima();
+
+
+        SharedPreferences usuario = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        String correo = usuario.getString("nombre","");
+        if(correo != ""){
+            Intent i = new Intent(SplashActivity.this, PlannerMainMenuActivity.class);
+            startActivity(i);
+            finish();
+        }else {
+            empezaranima();
+        }
 
     }
 

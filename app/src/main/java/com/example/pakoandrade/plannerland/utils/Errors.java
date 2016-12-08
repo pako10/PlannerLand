@@ -12,4 +12,10 @@ public final class Errors {
     //for incorrect password the server return a number from 1 to 5 until reach 5 to block the account
     public static final String accountBlocked = "2000";
     public static final String passRecoverSucess = "2252";
+
+    /** ERRORS FOR REGISTRO CLASS**/
+    public static final String errorEmail = "1500"; //For user dont exist in the data base
+    public static final String accountCreated = "1250"; //For user dont exist in the data base
+
+
 }

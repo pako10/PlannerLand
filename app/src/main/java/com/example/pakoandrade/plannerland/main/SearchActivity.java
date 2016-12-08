@@ -17,15 +17,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pakoandrade.plannerland.R;
 import com.example.pakoandrade.plannerland.registro.LoginActivity;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 public class SearchActivity extends AppCompatActivity {
     private MenuItem mSearchAction;
     private boolean isSearchOpened = false;
     private EditText edtSeach;
     Button btLogin;
+    MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,38 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setVoiceSearch(true); //or false
+
+        // MaterialSearchView searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                Toast.makeText(SearchActivity.this, query, Toast.LENGTH_SHORT).show();
+                //search(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
+
     }
 
 
@@ -51,6 +86,8 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.accion_busqueda);
+        searchView.setMenuItem(item);
         return true;
     }
 
@@ -66,17 +103,24 @@ public class SearchActivity extends AppCompatActivity {
 
         switch (id) {
 
-            case R.id.accion_busqueda:
+          /*  case R.id.accion_busqueda:
                 handleMenuSearch();
-                return true;
-
-
+                return true;*/
         }
-
         return super.onOptionsItemSelected(item);
-
-
     }
+
+    /** METHOD TO CLOSE THE SEARCHVIEW IF IS OPEN**/
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
 
     protected void handleMenuSearch(){
         ActionBar action = getSupportActionBar(); //get the actionbar

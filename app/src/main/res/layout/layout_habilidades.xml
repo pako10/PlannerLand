@@ -13,7 +13,7 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Introduce tus habilidades"
+            android:hint="@string/introduce_tus_habilidades"
             android:imeOptions="actionUnspecified"
             android:inputType="textMultiLine"/>
 
@@ -23,12 +23,18 @@
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvHabSize" />
+        android:id="@+id/tvHabSize"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:textColor="#000"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aceptar"
+        android:text="@string/accept"
         android:id="@+id/btHabilidades"
+        android:textStyle="bold"
+        android:background="@color/colorButtons"
+        android:textColor="#fff"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
