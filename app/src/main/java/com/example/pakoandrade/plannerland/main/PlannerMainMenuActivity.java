@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pakoandrade.plannerland.R;
+import com.example.pakoandrade.plannerland.main.fragments.PedaFragment;
 import com.example.pakoandrade.plannerland.main.fragments.layout_about;
 import com.example.pakoandrade.plannerland.main.fragments.layout_calendario;
 import com.example.pakoandrade.plannerland.main.fragments.layout_chat;
@@ -59,8 +60,10 @@ public class PlannerMainMenuActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
-                Toast.makeText(PlannerMainMenuActivity.this, query, Toast.LENGTH_SHORT).show();
-                //search(query);
+                Intent i = new Intent(PlannerMainMenuActivity.this,SearchMapActivity.class);
+                i.putExtra("busqueda",query);
+                startActivity(i);
+
                 return false;
             }
 
@@ -250,7 +253,7 @@ public class PlannerMainMenuActivity extends AppCompatActivity
                 fragmentTransaction.addToBackStack(String.valueOf(4));
                 fragmentTransaction.commit();
                 break;
-         /*   case 5:
+          /*  case 5:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 layout_terminos terminos = new layout_terminos();
@@ -258,6 +261,14 @@ public class PlannerMainMenuActivity extends AppCompatActivity
                 fragmentTransaction.addToBackStack(String.valueOf(5));
                 fragmentTransaction.commit();
                 break;*/
+            case 5:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                PedaFragment peda = new PedaFragment();
+                fragmentTransaction.replace(R.id.ejemplo_fragment, peda);
+                fragmentTransaction.addToBackStack(String.valueOf(5));
+                fragmentTransaction.commit();
+                break;
             case 6:
                 fragmentManager = getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();

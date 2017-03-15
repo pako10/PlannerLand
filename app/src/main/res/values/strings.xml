@@ -25,11 +25,11 @@
     <string name="seleccionciudad">Selecciona tu ciudad</string>
 
     <string name="registrarte">Registrar</string>
-    <string name="title_activity_search">SearchActivity</string>
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_search">Busqueda</string>
+    <string name="title_activity_login">Iniciar Sesion</string>
     <string name="title_activity_splash">Splash</string>
     <string name="action_settings">Menu</string>
-    <string name="title_activity_login_">Login_Activity</string>
+    <string name="title_activity_login_">Iniciar Sesion</string>
     <string name="title_activity_registro">RegistroActivity</string>
 
 
@@ -92,8 +92,9 @@ Pellentesque ac pretium sapien, id tincidunt massa. Maecenas auctor elementum od
 Aliquam erat volutpat. Integer commodo justo vitae felis bibendum elementum. Aenean id mauris eu risus aliquam dapibus accumsan sit amet eros. Vestibulum libero dolor, mattis nec pharetra in, posuere at tortor. Mauris porttitor lobortis erat, non molestie velit tempus sit amet. Etiam sit amet vehicula turpis. Vestibulum nec eros sit amet urna laoreet condimentum. Morbi facilisis scelerisque augue egestas bibendum. In quis lorem fermentum, auctor justo ut, commodo urna. Morbi ullamcorper a arcu ut rhoncus.
 
 Ut consequat metus sit amet sem faucibus, in efficitur diam bibendum. In porta dui placerat, sollicitudin mauris eu, suscipit lectus. Morbi varius mattis commodo. Nam vel efficitur elit. Vestibulum tincidunt felis vel nunc aliquam tincidunt. Nulla lorem ante, sagittis ut convallis sit amet, rhoncus a massa. Cras vel pretium nulla. Nam viverra ipsum a accumsan vehicula. Suspendisse a lectus a sapien ultrices commodo sed venenatis velit. Nullam a scelerisque risus, in faucibus arcu. Sed lacus lacus, euismod quis malesuada nec, tincidunt sit amet turpis. Integer mi nunc, fermentum non posuere eget, dictum vel odio. Donec vehicula metus a urna consequat elementum. Nulla facilisi. In hac habitasse platea dictumst. Duis semper, velit a cursus consectetur, enim risus tempor nibh, non tristique nunc magna dapibus tortor.</string>
-    <string name="title_activity_planner_main_menu">PlannerMainMenuActivity</string>
+    <string name="title_activity_planner_main_menu">PlannerLand</string>
     <string name="introduce_tus_habilidades">Introduce tus habilidades</string>
+    <string name="title_activity_user_profile">Map</string>
 
 
 </resources>

@@ -2,8 +2,6 @@ package com.example.pakoandrade.plannerland.main;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,37 +9,33 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pakoandrade.plannerland.R;
 import com.example.pakoandrade.plannerland.objects.UserPlanner;
 import com.example.pakoandrade.plannerland.objects.UserPlannerAdapter;
-import com.example.pakoandrade.plannerland.registro.LoginActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -56,20 +50,22 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class SearchActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
+/**
+ * Created by pakoAndrade on 24/01/17.
+ */
+
+public class SearchMapActivity extends FragmentActivity implements OnMapReadyCallback,GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
-    private MenuItem mSearchAction;
-    private boolean isSearchOpened = false;
-    private EditText edtSeach;
-    Button btLogin;
-    MaterialSearchView searchView;
+    private GoogleMap mMap;
+    private Marker mMarker;
 
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
     List<UserPlanner> items;
+
     String nombre;
     String n;
     String habilidades;
@@ -78,7 +74,10 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
     String latitud;
     String longitud;
 
-    //variables para geolocalizacion
+    MaterialSearchView searchView;
+
+
+    /**variables para geolocalizacion**/
     GoogleApiClient apiClient;
     private static final String LOGTAG = "android-localizacion";
     private static final int PETICION_PERMISO_LOCALIZACION = 101;
@@ -87,20 +86,32 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
     Location location;
 
 
-    ProgressDialog progressDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_search_map);
 
-        // Inicializar Usuarios
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapS);
+        mapFragment.getMapAsync(this);
+
+
+
+
+        // Inicializar Animes
         items = new ArrayList<>();
 
+/*
+        items.add(new UserPlanner(R.drawable.pokemon, "Welcome to the NHK","","","",""));
+        items.add(new UserPlanner(R.drawable.pokemon, "Welcome to the NHK","","","",""));
+        items.add(new UserPlanner(R.drawable.pokemon, "Welcome to the NHK","","","",""));
+        items.add(new UserPlanner(R.drawable.pokemon,"","","","", "Suzumiya Haruhi"));*/
+        Bundle bundle = getIntent().getExtras();
+        String query = bundle.getString("busqueda");
+
+
         // Obtener el Recycler
-        recycler = (RecyclerView) findViewById(R.id.reciclador);
+        recycler = (RecyclerView) findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
 
         // Usar un administrador para LinearLayout
@@ -111,19 +122,6 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
         adapter = new UserPlannerAdapter(this,items);
         recycler.setAdapter(adapter);
 
-        progressDialog = new ProgressDialog(SearchActivity.this);
-        progressDialog.setMessage("Buscando");
-
-
-        btLogin = (Button) findViewById(R.id.login);
-
-        btLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SearchActivity.this, LoginActivity.class);
-                startActivity(i);
-            }
-        });
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setVoiceSearch(true); //or false
@@ -133,8 +131,8 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
+                //Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
                 search(query);
-                progressDialog.show();
                 return false;
             }
 
@@ -145,17 +143,7 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
             }
         });
 
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
-            }
-        });
+        /** LOCALIZACION DEL USUARIO**/
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -167,7 +155,7 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 return;
             } else {
@@ -183,71 +171,78 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
                 .addApi(LocationServices.API)
                 .build();
 
+        search(query);
     }
 
-    /** OVERRIDE METHOD TO CATCH THE VOICE AND TRANSFORM IN TO TEXT**/
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (matches != null && matches.size() > 0) {
-                String searchWrd = matches.get(0);
-                if (!TextUtils.isEmpty(searchWrd)) {
-                    searchView.setQuery(searchWrd, false);
-                }
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+       /* LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        //CameraUpdate zoom = CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 15);
+                        // mMap.animateCamera(zoom);
+                        // Zoom in, animating the camera.
+                        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+
+                        mMap.animateCamera(zoom);
+                    }
+                }, 300);
+
+                return false;
             }
+        });
 
-            return;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        MenuItem item = menu.findItem(R.id.accion_busqueda);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
+
         return true;
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        mSearchAction = menu.findItem(R.id.accion_busqueda);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id) {
-
-          /*  case R.id.accion_busqueda:
-                handleMenuSearch();
-                return true;*/
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
-
-    /** METHOD TO CLOSE THE SEARCHVIEW IF IS OPEN**/
-    @Override
-    public void onBackPressed() {
-        if (searchView.isSearchOpen()) {
-            searchView.closeSearch();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
 
 
     public void search(String query){
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-
 
 
         /** CADA VEZ QUE MANDAMOS DATOS AL WS SE REVISA SI ESTA ACTIVADO EL GPS PARA MANDAR LAT Y LNG*/
@@ -265,18 +260,18 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
                 LocationServices.FusedLocationApi.getLastLocation(apiClient);
         updateUI(lastLocation);
 
+
+
         params.add("pBusqueda",query);
         params.add("pID","0");
         params.add("Lat", latitud);
         params.add("Lon", longitud);
 
 
-        Toast.makeText(this, params.toString(), Toast.LENGTH_LONG).show();
-
-        //http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/BucarPID
+        Toast.makeText(this, params.toString(), Toast.LENGTH_SHORT).show();
 
         //http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/BucarPID?pBusqueda="desarrollador"&pID="0"&Lat="0"&Lon="0"
-        client.get("http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/BucarPID",params, new TextHttpResponseHandler() {
+        client.get("http://wsplannerregistro.cloudapp.net/wsRegistrro.svc/BucarPID?pBusqueda=",params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 
@@ -286,7 +281,6 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 items.clear();
                 try {
-
                     JSONObject jsonObject = new JSONObject(responseString);
                     nombre = String.valueOf(jsonObject.get("d"));
                     JSONArray jsonArray = new JSONArray(nombre);
@@ -296,9 +290,12 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
                         habilidades = jsonObject1.optString("HabilidadesDescripcion");
                         lat = jsonObject1.optString("Latitud");
                         lon = jsonObject1.optString("Longitud");
-                        items.add(new UserPlanner(R.drawable.logotipo, n, habilidades,lat,lon,"false"));
+                        items.add(new UserPlanner(R.drawable.logotipo, n, habilidades,lat,lon,"true"));// mandamos true porque ya es usuario registrado
+                        Double lati = Double.valueOf(lat);
+                        Double lng = Double.valueOf(lon);
+                        agregarMarcador(lati,lng,n);
+
                     }
-                    progressDialog.dismiss();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -310,12 +307,33 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
         });
     }
 
+
+    public void agregarMarcador(double lat, double lon,String name) {
+        LatLng coordenadas = new LatLng(lat, lon);
+        CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 10f);
+
+        mMarker = mMap.addMarker(new MarkerOptions().position(coordenadas).title(name).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+        mMap.animateCamera(miUbicacion);
+    }
+    @Override
+    public void onBackPressed(){
+        float zoom = mMap.getCameraPosition().zoom;
+
+        if (zoom > 10f) {
+            // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(10f), 2000, null);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    /**CONECTION FOR UBICATION **/
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         //Conectado correctamente a Google Play Services
 
         if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -342,6 +360,7 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
     }
 
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PETICION_PERMISO_LOCALIZACION) {
@@ -365,6 +384,7 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
+
     //actualizar latitud y longitud
     private void updateUI(Location loc) {
         if (loc != null) {
@@ -375,7 +395,6 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
             longitud = String.valueOf(0);
         }
     }
-
 
     //dialogo para solicitar acceso al gps
     private void AlertNoGps() {
@@ -397,60 +416,4 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
         alert.show();
 
     }
-
-
-
-    protected void handleMenuSearch(){
-        ActionBar action = getSupportActionBar(); //get the actionbar
-
-        if(isSearchOpened){ //test if the search is open
-
-            action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
-            action.setDisplayShowTitleEnabled(true); //show the title in the action bar
-
-            //hides the keyboard
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(edtSeach.getWindowToken(), 0);
-
-            //add the search icon in the action bar
-            mSearchAction.setIcon(getResources().getDrawable(R.drawable.ic_search_black_24dp));
-
-            isSearchOpened = false;
-        } else { //open the search entry
-
-            action.setDisplayShowCustomEnabled(true); //enable it to display a
-            // custom view in the action bar.
-            action.setCustomView(R.layout.search_bar);//add the custom view
-            action.setDisplayShowTitleEnabled(false); //hide the title
-
-            edtSeach = (EditText)action.getCustomView().findViewById(R.id.edtSearch); //the text editor
-
-            //this is a listener to do a search when the user clicks on search button
-            edtSeach.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                      //  doSearch(0);
-                        return true;
-                    }
-
-                    return true;
-                }
-            });
-
-
-            edtSeach.requestFocus();
-
-            //open the keyboard focused in the edtSearch
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(edtSeach, InputMethodManager.SHOW_IMPLICIT);
-
-
-            //add the close icon
-            mSearchAction.setIcon(getResources().getDrawable(R.drawable.ic_clear_black_24dp));
-
-            isSearchOpened = true;
-        }
-    }
-
 }
